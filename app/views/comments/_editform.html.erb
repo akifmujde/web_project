@@ -1,0 +1,77 @@
+<%= form_for([@post, @comment=Comment.find(params[:id])]) do |f| %>
+<h1><%=t("e_comment")%></h1>
+<div class="container kayit_sergile" style="border-color:red">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+      <%=image_tag @post.user.image.url(:thumb),:class => 'img-circle' if @post.user.image?%> 
+      <%=@post.user.name%> <%=@post.user.surname%> 
+      <%=@post.created_at%>
+    </div>
+  </div>
+  <% if @post.title!=""%>
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <b><%=@post.title%></b>
+      </div>
+    </div>
+    <br>
+  <% end %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:5%;">
+      <% if @post.image? %>
+        <%= image_tag @post.image.url(:thumb), :class => 'img-rounded', :style => 'display:block;margin:auto;' %>
+      <% else %>
+        <strong>Bu gönderide resim bulunmamaktadır.</strong>
+      <%end%>
+    </div>
+  </div>
+  <% if @post.title!=""%>
+  <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <%=@post.msg%>
+      </div>
+    </div>
+    <br>
+  <% end %>
+  <div class="row" style="padding:1%">
+      <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+        <%=image_tag @comment.user.image.url(:mini),style:"border-radius:1em;" if @comment.user.image?%>
+      </div>
+      
+      <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <b>
+              <%=@comment.user.name%> <%=@comment.user.surname%>
+            </b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <%= f.text_field :bdy, id: :comment_bdy, class:"form-control",style:"width:100%;border-color:red;color:black" %>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <x>
+                <% if user_signed_in? %>
+                  <% if current_user.id==@comment.user_id %>
+                  <input type="submit" name="commit" value="<%=t("e_comment")%>" style="border-radius:0;">
+                    <a></a>
+                    <a></a>
+                    <a data-confirm="<%=t("p_data_confirm")%>?" rel="nofollow" data-method="delete" 
+                    href="/posts/<%=@post.id%>/comments/<%=@comment.id%>?locale=<%= I18n.locale %>" style="text-decoration: none;padding:0.5%;border:0;">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                  <% end %>
+                <% end %>
+            </x>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<% end %>

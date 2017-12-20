@@ -1,0 +1,18 @@
+<h1><%=t("forget")%></h1>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="panel panel-primary">
+    <div class="panel-body">
+      <div class="field">
+        <label><%=t("email")%></label><br>
+        <%= f.email_field :email, autofocus: true,:class =>'form-control' %>
+      </div>
+      <div class="actions">
+        <input type="submit" name="commit" value="<%=t('r_password')%>!" style="border-radius:0em;">
+      </div>
+      <hr>
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+<% end %>

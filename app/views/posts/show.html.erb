@@ -1,0 +1,153 @@
+<!--<h1><%=t("post")%></h1>-->
+<div class="panel panel-default kayit_divi container" style="width:100%;">
+  <% if @post.title!=""%>
+    <div class="panel-heading" style="overflow:auto;word-wrap:break-word;">
+      <h2 style="color:black;text-align:center;"><%=@post.title%></h2>
+    </div>
+  <% else %>
+    <br>
+  <%end%> 
+    <div class="panel-body" style="overflow:auto;word-wrap:break-word;">
+      <div class="row" style="padding:1%;">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <% if @post.image? %>
+            <%= image_tag @post.image.url(:medium), :style => 'display:block;margin:auto;' %>
+          <% else %>
+            <strong><%=t("n_img")%>.</strong>
+          <% end %>
+        </div>
+      </div>
+      <hr style="background-color:black;border-color:black;">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" style="text-align:left;">
+          <% if @post.image? %>
+            <strong><%=t("f_name")%> : </strong><%=@post.image_file_name%><br>
+            <strong ><%=t("f_type")%> : </strong><%=@post.image_content_type%>
+          <% else %>
+            <strong><%=t("f_name")%> : </strong>-------<br>
+            <strong ><%=t("f_type")%> : </strong>-------
+          <% end %>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="text-align:right;">
+          <strong ><%=t("c_date")%> : </strong> <%=@post.created_at%><br>
+          <strong ><%=t("u_date")%> : </strong><%=@post.updated_at%>
+        </div>
+      </div>
+      <hr  style="background-color:black;border-color:black;">
+      <% if @post.title!=""%>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <textarea class="form-control" rows="15" id="index" readonly style="resize:none;color:black;background-color:white;border-color:lightblue;"><%=@post.msg%></textarea>
+        </div>
+      </div>
+      <hr  style="background-color:black;border-color:black;">
+      <%end%>
+      
+      
+      
+      <% if user_signed_in? %>
+      
+        <%=render 'comments/form'%>
+      
+      <% end %>
+      
+      
+      
+      
+      <hr  style="background-color:black;border-color:black;">
+      
+      <div id=comments>
+        <%@comments.each do |c|%>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+              <%=image_tag c.user.image.url(:mini),style:"border-radius:1em;" if @post.user.image?%>
+            </div>
+            
+            <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <b>
+                    <%=c.user.name%> <%=c.user.surname%> <%=c.id%>
+                  </b>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <%=c.bdy%>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <x>
+                  <% if user_signed_in? %>
+                    <% if current_user.id==c.user_id %>
+                      <a href="/posts/<%=@post.id%>/comments/<%=c.id%>?locale=<%= I18n.locale %>" style="text-decoration: none;padding:0.5%;border:0;">
+                        <i class="fa fa-eye"></i>
+                      </a>
+                      
+                      <a href="/posts/<%=@post.id%>/comments/<%=c.id%>/edit?locale=<%= I18n.locale %>"  style="text-decoration: none;padding:0.5%;border:0;"> 
+                        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                      </a>
+                      
+                      <a data-confirm="<%=t("p_data_confirm")%>?" rel="nofollow" data-method="delete" 
+                      href="/posts/<%=@post.id%>/comments/<%=c.id%>?locale=<%= I18n.locale %>" style="text-decoration: none;padding:0.5%;border:0;">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </a>
+                    <% end %>
+                  <% end %>
+                  </x>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+        <%end%> 
+      </div>
+    <%if @likeds.count>0%>  
+      <i class="fa fa-heart fa-lg" style="color:red"></i>&nbsp;<i><%=@likeds.count%></i>&nbsp;&nbsp;
+      <% @likeds.each do |l|%>
+        <%=l.user.name%>
+      <% end %>
+    <%end%>
+    </div>
+    
+    <div class="panel-footer" style="padding:1%;">
+      <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" id="<%=@post.id%>">  
+        <% if user_signed_in? %>
+          <%if Like.where(user:current_user, post:@post).count>0%>                             
+	          <%= link_to "", unlike_post_path(@post), class:"fa fa-heart fa-lg",style:"text-decoration: none;",remote: :true, method: :put %>                          
+          <%else%>                            
+ 	          <%= link_to "", like_post_path(@post), class:"fa fa-heart-o fa-lg",style:"text-decoration: none;",remote: :true, method: :put %>                          
+          <%end%>
+        <%end%>
+        </div>
+        
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" style="text-align:right;">
+          <% if @post.image? %>
+            <y>
+              <a href=<%=@post.image.url(:orginal)%> download title="<%=t("download_link")%>." data-toggle="tooltip" data-placement="left">
+                <i class="fa fa-download fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;<%=t("download")%>
+              </a>
+            </y>
+          <% end %>
+          
+          <x>
+            <a></a>
+            <% if user_signed_in? %>
+              <% if current_user.id==@post.user_id %>
+                <a href="/posts/<%=@post.id%>/edit?locale=<%= I18n.locale %>">
+                  <!--title="<%=t("edit_link")%>." data-toggle="tooltip" data-placement="left"-->
+                  <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;<%=t("edit")%>
+                </a>
+                <a data-confirm="<%=t("p_data_confirm")%>?" rel="nofollow" data-method="delete" href="/posts/<%=@post.id%>?locale=<%= I18n.locale %>">
+                  <!--title="<%=t("destroy_link")%>." data-toggle="tooltip" data-placement="left"-->
+                  <i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;<%=t("destroy")%>!
+                </a>
+              <% end %>
+            <% end %>
+          </x>
+        </div>
+      </div>
+    </div>
+</div>

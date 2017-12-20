@@ -1,0 +1,50 @@
+<div class="container kayit_sergile" style="padding:1%;">
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <script>
+    $(document).ready(function(){
+      $('#post_title').val("<%= @post.title%>");
+    });
+  </script>
+  <div class="media">
+    <div class="media-left media-top">
+      
+    </div>
+    <div class="media-body ">
+      <div class="media-heading">
+        <label><%=t("img")%></label><br><br>
+        <% if @post.image? %>
+          <%= image_tag @post.image.url(:thumb) %><br><br>
+        <%end%>
+        <%= f.file_field :image%>
+      </div>
+      <hr>
+      <div class="form">
+        <b><%=t("title")%></b>
+        <br><br>
+        <input type="text" name="post[title]" id="post_title" class="form-control" style="width:100%;">
+      </div>
+      <hr>
+      <div id="1">
+        <b><%=t("content")%></b>
+        <br><br>
+        <textarea class="form-control" rows="7" id="post_msg" name="post[msg]" style="resize:none;color:black;background-color:white;border-color:lightblue;"><%=@post.msg%></textarea>
+      </div>
+      <hr>
+      <div style="text-align:right;">
+        <input type="submit" name="commit" class="" value="<%=t("send")%>!" style="border-radius:0;">
+      </div>
+    </div>
+  </div>
+<% end %>

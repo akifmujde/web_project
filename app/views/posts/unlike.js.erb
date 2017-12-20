@@ -1,0 +1,1 @@
+$('#<%=@post.id%>').html('<%= link_to "", like_post_path(@post), class:"fa fa-heart-o fa-lg",style:"text-decoration: none;",remote: :true, method: :put %>')

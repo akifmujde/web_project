@@ -1,0 +1,10 @@
+<h1><%=t("e_post")%></h1>
+
+<%= render 'form' %>
+<br>
+<div  style="text-align:right">
+    <x>
+        <a href="/posts/<%=@post.id%>?locale=<%= I18n.locale %>"><i class="fa fa-eye fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;<%=t("show")%></a>
+    </x>
+</div>
+</div>

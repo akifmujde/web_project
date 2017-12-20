@@ -1,0 +1,60 @@
+<h1><%=t("edit_profile")%></h1>
+<div class="panel panel-primary" style="padding:1%;">
+  <div class="panel-body">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+      <div class="field">
+        <label><%=t("name")%></label><br>
+        <%= f.text_field :name ,:class => 'form-control'%>
+      </div>
+      
+      <div class="field">
+        <label><%=t("surname")%></label><br>
+        <%= f.text_field :surname ,:class => 'form-control' %>
+      </div>
+        
+      <div class="field">
+        <label><%=t("email")%></label><br />
+        <%= f.email_field :email, autofocus: true,:class =>'form-control'%>
+      </div>
+      <br>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+    
+      <div class="field">
+        <label for="user_Yeni Şifreniz"><%=t("n_password")%></label> <i>(<%=t("n_password_info")%>)</i><br />
+        <%= f.password_field :password, autocomplete: "off",:class =>'form-control' %>
+        <% if @minimum_password_length %>
+          <em>minimum <%= @minimum_password_length %> <%=t("character")%> </em>
+        <% end %>
+      </div>
+    
+      <div class="field">
+        <label for="user_Şifrenizi Tekrarlayınız"><%=t("confrim_password")%></label><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off",:class =>'form-control' %>
+      </div>
+      <br>
+      <div class="field">
+        <label for="user_Mevcut Şifreniz"><%=t("current_password")%></label>
+        <i>(<%=t("current_password_info")%>)</i><br />
+        <%= f.password_field :current_password, autocomplete: "off",:class =>'form-control' %>
+      </div>
+      
+      <div class="field">
+        <label><%=t("profile_picture")%></label><br>
+        <%= f.file_field :image,class:"",placeholder:"Bir Profil Resmi",style:""%>
+      </div>
+      
+      <div class="actions">
+        <input type="submit" name="commit" value="<%=t("update")%>"  style="border-radius:0em;">
+      </div>
+    <% end %>
+      <hr  style="background-color:black;border-color:black;">
+    <h3><%=t("dont_like")%> ?</h3>
+    <form class="button_to" method="post" action="/users"><input type="hidden" name="_method" value="delete">
+      <input data-confirm="<%=t("a_data_confirm")%> ?" style="border-radius:0em;" type="submit" value="<%=t("delete_my_acount")%> !" >
+      <input type="hidden" name="authenticity_token" value="mxVW6TlnYJ1sjm2dmZPG9nuTlFcJUwbuxS1TiK7sQn+Znt2zKAqm+e7aF2PLbb/uEZnVcbGUu+RtronFU40BeA==">
+    </form>
+  </div>
+</div>

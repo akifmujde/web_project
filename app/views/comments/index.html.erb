@@ -1,0 +1,17 @@
+<table>
+  <thead>
+    <tr>
+      <th>Yorum Sahibi</th>
+      <th>Yorum</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.user.name %> <%= comment.user.surname %></td>
+        <td><%= comment.bdy %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,64 @@
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+    });
+  </script>
+<div class="container-fluid">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="/posts?locale=<%= I18n.locale %>">
+      <%= t("home")%> | 
+      <% if I18n.locale.to_s == "en" %>
+        <i>EN</i>
+      <% else %>
+        <i>TR</i>
+      <% end %>
+      
+    </a>
+  </div>
+  <ul class="nav navbar-nav">
+    <% if user_signed_in? %>
+      <li>
+        <a  href="/posts/new?locale=<%= I18n.locale %>" data-toggle="tooltip" data-placement="bottom" title="<%=t("new_post_link")%>.">
+          <i class="fa fa-plus-square fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;<%=t("new_post")%>
+        </a>
+      </li>
+    <% else %>
+      <li>
+        <a href="/posts/about?locale=<%= I18n.locale %>" target="_blank" data-toggle="tooltip" data-placement="bottom" title="<%=t("about_link")%>!">
+          <i class="fa fa-file-word-o fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;<%=t("about")%>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+          <li>
+            <a href="/posts/user_info?locale=<%= I18n.locale %>" data-toggle="tooltip" data-placement="bottom" title="<%=t("welcome")%>" disabled>
+              <%=image_tag current_user.image.url(:mini)%>&nbsp;&nbsp;<%= current_user.name %>&nbsp;<%= current_user.surname %>
+            </a>
+          </li>
+          
+          <li>
+            <a class="btn-link" href="/users/edit?locale=<%= I18n.locale %>" data-toggle="tooltip" data-placement="bottom" title="<%=t("edit_profile_link")%>.">
+              <i class="fa fa-pencil-square-o fa-lg"></i>&nbsp;&nbsp;<%=t("edit_profile")%>
+            </a>
+          </li>
+          <li>
+            <a class="btn-link" rel="nofollow" data-method="delete" href="/users/sign_out?locale=<%= I18n.locale %>" data-toggle="tooltip" data-placement="bottom" title="<%=t("sign_out_link")%>.">
+              <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;<%=t("sign_out")%>
+            </a>
+          </li>
+      <% else %>
+          <li>
+            <a class="btn-link " href="/users/sign_in?locale=<%= I18n.locale %>" data-toggle="tooltip" data-placement="bottom" title="<%=t("sign_in_link")%>.">
+              <i class="fa fa-sign-in fa-lg"></i>&nbsp;&nbsp;<%=t("sign_in")%>
+            </a>
+          </li>
+          <li>
+            <a class="btn-link " href="/users/sign_up?locale=<%= I18n.locale %>" data-toggle="tooltip" data-placement="bottom" title="<%=t("sign_up_link")%>.">
+              <i class="fa fa-users fa-lg"></i>&nbsp;&nbsp;<%=t("sign_up")%>
+            </a>
+          </li>
+      <% end %>
+    </ul>
+</div>

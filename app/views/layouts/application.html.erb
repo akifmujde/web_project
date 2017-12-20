@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <title>mujde.akif@gmail.com</title>
+  <link rel="Shortcut Icon"  href="http://icons.veryicon.com/ico/Internet%20%26%20Web/Rounded%20Flat%20Social/share.ico"  type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <nav class="navbar navbar-inverse" style="border-radius:0;">
+    <%= render 'shared/navbar' %>
+  </nav>
+  
+  <main class="container bg" style="width:100%;padding-top:0.5%;overflow:auto;">
+    
+    <div data-toggle="tooltip" data-placement="top" title="<%=t("ad_slot")%>." class="hidden-xs hidden-sm col-md-2 col-lg-2">
+      <img src="https://pbs.twimg.com/media/DMra0X8V4AAQXpK.jpg" width="100%">
+    </div>
+    
+    <div class="col-md-12 col-sm-12 col-md-8 col-lg-8" style="height:100%;">
+      <%= yield %>
+    </div>
+    
+    <div data-toggle="tooltip" data-placement="top" title="<%=t("ad_slot")%>." class="hidden-xs hidden-sm col-md-2 col-lg-2">
+      <img src="http://www.parismiki.com.sg/wp-content/uploads/2017/03/7a899515b4d4c7bcd332e1449308a58a.jpg" width="100%">
+      <hr>
+      <img src="http://2.bp.blogspot.com/-gMWE8DaJT_c/VPRkp5prWHI/AAAAAAAAAQk/cqzsuw8M1KA/s1600/isirilmis-elmanin-sirri--1587217.Jpeg" width="100%">
+    </div>
+    
+  </main>
+  <div class="footer container">
+    <%= render 'shared/footerbar' %>
+  </div>
+</body>
+</html>

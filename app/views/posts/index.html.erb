@@ -1,0 +1,48 @@
+<!--<h1><%=t("posts")%></h1>-->
+
+<% @posts.each do |post| %>
+<div class="container kayit_sergile">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+      <%=image_tag post.user.image.url(:thumb),:class => 'img-circle' if post.user.image?%> 
+      <%=post.user.name%> <%=post.user.surname%> 
+      <%=post.created_at%>
+    </div>
+  </div>
+  <% if post.title!=""%>
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <b><%=post.title%></b>
+      </div>
+    </div>
+    <br>
+  <% end %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding:5%;">
+      <% if post.image? %>
+        <%= image_tag post.image.url(:thumb), :class => 'img-rounded', :style => 'display:block;margin:auto;' %>
+      <% else %>
+        <strong>Bu gönderide resim bulunmamaktadır.</strong>
+      <%end%>
+    </div>
+  </div>
+  <% if post.title!=""%>
+  <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <%=post.msg%>
+      </div>
+    </div>
+    <br>
+  <% end %>
+  <div class="row" style="padding:0.5%;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align:right;">
+      <x>
+        <a href="/posts/<%=post.id%>?locale=<%= I18n.locale %>"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;&nbsp;<%=t("show")%></a>
+      </x>
+    </div>
+  </div>
+</div>
+<br>
+<%end%>

@@ -1,0 +1,48 @@
+<h1><%=t("sign_up")%></h1>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="panel panel-primary" style="padding:1%;">
+    <div class="panel-body">
+      <div class="field">
+        <label><%=t("name")%></label><br>
+        <%= f.text_field :name, autofocus: true ,:class => 'form-control'%>
+      </div>
+      
+      <div class="field">
+        <label><%=t("surname")%></label><br>
+        <%= f.text_field :surname ,:class => 'form-control'%>
+      </div>
+      
+      <div class="field">
+        <label><%=t("email")%></label><br />
+        <%= f.email_field :email,:class => 'form-control' %>
+      </div>
+    
+      <div class="field">
+        <label><%=t("password")%></label>
+        <% if @minimum_password_length %>
+        <em>(minimum <%= @minimum_password_length %> <%=t("character")%>)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "off",:class => 'form-control' %>
+      </div>
+    
+      <div class="field">
+        <label><%=t("confrim_password")%></label><br />
+        <%= f.password_field :password_confirmation,class:"form-control", autocomplete: "off" %>
+      </div>
+      <div class="form-group">
+        <label><%=t("profile_picture")%></label><br>
+        <%= f.file_field :image,class:"",placeholder:"Bir Profil Resmi",style:""%>
+      </div>
+      <div class="actions">
+        <input type="submit" name="commit" value="<%=t("sign_up")%>" style="border-radius:0em;">
+      </div>
+      <br>
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+  
+<% end %>
+
+

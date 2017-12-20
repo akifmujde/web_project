@@ -1,0 +1,44 @@
+<h1><%=t("show_comment")%></h1>
+<%= form_for([@post,@comment=Comment.find(params[:id])]) do |f| %>  
+<div class="container kayit_sergile">
+  <div class="row" style="padding:1%">
+      <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+        <%=image_tag @comment.user.image.url(:mini),style:"border-radius:1em;" if @comment.user.image?%>
+      </div>
+      
+      <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <b>
+              <%=@comment.user.name%> <%=@comment.user.surname%>
+            </b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-top:2.5%">
+            <%=@comment.bdy%>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <x>
+                <% if user_signed_in? %>
+                  <% if current_user.id==@comment.user_id %>
+                    <a></a>
+                    <a href="/posts/<%=@post.id%>/comments/<%=@comment.id%>/edit?locale=<%= I18n.locale %>"  style="text-decoration: none;padding:0.5%;border:0;"> 
+                        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                    </a>
+                    <a data-confirm="<%=t("p_data_confirm")%>?" rel="nofollow" data-method="delete" 
+                    href="/posts/<%=@post.id%>/comments/<%=@comment.id%>?locale=<%= I18n.locale %>" style="text-decoration: none;padding:0.5%;border:0;">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                  <% end %>
+                <% end %>
+            </x>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<%end%>
